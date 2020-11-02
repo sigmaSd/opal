@@ -39,17 +39,18 @@ impl App {
     pub async fn run(&self) -> Result<()> {
         let dim = Dimension::from(crossterm::terminal::size().unwrap());
         //let dim = Dimension::from((80, 24));
-        let writer = std::io::BufWriter::new(std::io::stderr());
+		let stderr = std::io::stderr();
+        let writer = std::io::BufWriter::new(stderr.lock());
 
         let mut viewport = Viewport::new(Region::new(dim.width, dim.height), writer);
 
         viewport.init().unwrap();
 
-        tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+//        tokio::time::sleep(std::time::Duration::from_secs(2)).await;
 
         viewport.draw();
 
-        tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
 
         viewport.release().unwrap();
         

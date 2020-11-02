@@ -1,6 +1,5 @@
 use {
     super::{
-        W,
         Buffer,
         Cell,
         Region
@@ -23,12 +22,14 @@ use {
     }
 };
 
-pub struct Viewport {
+pub struct Viewport<W>
+where W: std::io::Write
+ {
     buffer: Buffer,
     pub writer: W,
 }
 
-impl Viewport {
+impl <W: std::io::Write>Viewport<W> {
     pub fn new(region: Region, writer: W) -> Self {
         Self {
             buffer: Buffer::filled(region, Cell::new('x')),

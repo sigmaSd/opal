@@ -11,7 +11,7 @@ pub use {
 };
 
 /// The writer used to write to the terminal buffer
-pub type W = std::io::BufWriter<std::io::Stderr>;
+//pub type W<'a> = std::io::BufWriter<StderrLock<'a>>;
 
 use std::convert::From;
 
