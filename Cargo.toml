@@ -13,8 +13,9 @@ snafu = "0.6.9"
 clap = "3.0.0-beta.2"
 
 [dependencies.crossterm]
-version = "0.18.0"
 features = ["event-stream"]
+git="https://github.com/sigmaSd/crossterm" 
+branch="perf"
 
 [dependencies.tokio]
 version = "0.3"

@@ -41,6 +41,7 @@ impl App {
         //let dim = Dimension::from((80, 24));
 		let stderr = std::io::stderr();
         let writer = std::io::BufWriter::new(stderr.lock());
+//        let writer = stderr.lock();
 
         let mut viewport = Viewport::new(Region::new(dim.width, dim.height), writer);
 

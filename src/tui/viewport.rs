@@ -38,9 +38,10 @@ impl <W: std::io::Write>Viewport<W> {
     }
 
     pub fn draw(&mut self) {
+    	let mut w = &mut self.writer;
         for (pos, cell) in self.buffer.iter() {
-            self.writer.queue(MoveTo(pos.col, pos.row)).unwrap();
-            self.writer.queue(Print(cell)).unwrap();
+            crossterm::queue!(w, MoveTo::new(pos.col, pos.row)).unwrap();
+            w.queue(Print(cell)).unwrap();
         }
 
         self.writer.flush().unwrap();
@@ -51,7 +52,9 @@ impl <W: std::io::Write>Viewport<W> {
         self.writer.queue(EnterAlternateScreen)?;
         self.writer.queue(cursor::Hide)?;
         self.writer.queue(cursor::DisableBlinking)?;
-        self.writer.queue(MoveTo(0, 0))?;
+        crossterm::queue!(self.writer, MoveTo::new(0, 0)).unwrap();
+
+//        self.writer.queue(MoveTo::new(0, 0))?;
 
         self.writer.flush()?;
 
